@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_socketio import SocketIO, send, join_room, leave_room
+from flask_socketio import SocketIO, send, join_room, leave_room, emit
 
 import os
 
@@ -20,12 +20,11 @@ def on_leave(data):
 
 @socketio.on('note')
 def handle_note(data):
-    print(data)
-    send({'note':data.get('note')}, broadcast=True, json=True, room=str(data.get('note').get('creator_id')))
+    emit('note', {'note':data.get('note')}, broadcast=True, json=True, room=str(data.get('note').get('creator_id')))
 
 @socketio.on('image')
 def handle_note(data):
-    send({'image':data.get('image')}, broadcast=True, json=True, room=data.get('creator_id'))
+    emit('note', {'image':data.get('image')}, broadcast=True, json=True, room=data.get('creator_id'))
 
 @app.route('/')
 def index():
