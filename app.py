@@ -18,9 +18,13 @@ def on_leave(data):
     room = data.get('user_id')
     leave_room(room)
 
-@socketio.on('json')
+@socketio.on('note')
 def handle_note(data):
     send({'note':data.get('note')}, broadcast=True, json=True, room=data.get('note').get('creator_id'))
+
+@socketio.on('image')
+def handle_note(data):
+    send({'image':data.get('image')}, broadcast=True, json=True, room=data.get('creator_id'))
 
 @app.route('/')
 def index():
