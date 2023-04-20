@@ -11,16 +11,17 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 @socketio.on('join')
 def on_join(data):
     room = data.get('user_id')
-    join_room(room)
+    join_room(str(room))
 
 @socketio.on('leave')
 def on_leave(data):
     room = data.get('user_id')
-    leave_room(room)
+    leave_room(str(room))
 
 @socketio.on('note')
 def handle_note(data):
-    send({'note':data.get('note')}, broadcast=True, json=True, room=data.get('note').get('creator_id'))
+    print(data)
+    send({'note':data.get('note')}, broadcast=True, json=True, room=str(data.get('note').get('creator_id')))
 
 @socketio.on('image')
 def handle_note(data):
