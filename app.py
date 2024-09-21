@@ -31,4 +31,4 @@ def index():
     return {"name":"KlassNaut Socket Server", "version":"0.0.1", "status":"OK"}
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, debug = True)
